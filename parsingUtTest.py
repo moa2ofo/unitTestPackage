@@ -7,7 +7,7 @@ Created on Thu Feb 20 18:37:13 2025
 
 import os
 import re
-#import os
+import sys
 import shutil
 
 
@@ -18,6 +18,41 @@ EXCLUDED_FILES = {"unity.h", "unity.c", "cmock.c", "cmock.h", "unity_internals.h
 # ==============================
 moduli = [
     {"nome_modulo": "LinStub.c", "nome_funzione": "ApplLinDiagReadDataByAddress", "percorso": "../../elop_048/product/lin_drv/LinStub_test"},
+    {"nome_modulo": "LinStub.c", "nome_funzione": "ApplLinDiagSessionControl", "percorso": "../../elop_048/product/lin_drv/LinStub_test"},
+    {"nome_modulo": "LinStub.c", "nome_funzione": "RdbiCalibrationVerificationNumber_", "percorso": "../../elop_048/product/lin_drv/LinStub_test"},
+    {"nome_modulo": "LinStub.c", "nome_funzione": "WdbiEcuHwPartNumberId_", "percorso": "../../elop_048/product/lin_drv/LinStub_test"},
+    {"nome_modulo": "LinStub.c", "nome_funzione": "WdbiEcuPartNumber_", "percorso": "../../elop_048/product/lin_drv/LinStub_test"},
+    {"nome_modulo": "LinStub.c", "nome_funzione": "ApplLinDiagEcuReset", "percorso": "../../elop_048/product/lin_drv/LinStub_test"}, 
+    {"nome_modulo": "LinStub.c", "nome_funzione": "ApplLinDiagReadDataById", "percorso": "../../elop_048/product/lin_drv/LinStub_test"},
+    {"nome_modulo": "LinStub.c", "nome_funzione": "ApplLinDiagWriteDataById", "percorso": "../../elop_048/product/lin_drv/LinStub_test"},    
+    {"nome_modulo": "LinStub.c", "nome_funzione": "WdbiEcuManufactoringDate_", "percorso": "../../elop_048/product/lin_drv/LinStub_test"},
+    {"nome_modulo": "LinStub.c", "nome_funzione": "WdbiEcuSerialNumber_", "percorso": "../../elop_048/product/lin_drv/LinStub_test"},
+    {"nome_modulo": "LinStub.c", "nome_funzione": "WdbiVhitSerialNumber_", "percorso": "../../elop_048/product/lin_drv/LinStub_test"},
+    {"nome_modulo": "LinStub.c", "nome_funzione": "WdbiEcuPartNumber_", "percorso": "../../elop_048/product/lin_drv/LinStub_test"},
+    {"nome_modulo": "LinStub.c", "nome_funzione": "WdbiEcuHwPartNumberId_", "percorso": "../../elop_048/product/lin_drv/LinStub_test"},
+    {"nome_modulo": "LinStub.c", "nome_funzione": "WdbiSystemSupplierEcuHardwareNumber_", "percorso": "../../elop_048/product/lin_drv/LinStub_test"},
+    {"nome_modulo": "LinStub.c", "nome_funzione": "WdbiSystemSupplierEcuHardwareVersionNumber_", "percorso": "../../elop_048/product/lin_drv/LinStub_test"},
+    {"nome_modulo": "LinStub.c", "nome_funzione": "WdbiSupplierSerialNumber_", "percorso": "../../elop_048/product/lin_drv/LinStub_test"},
+    {"nome_modulo": "LinStub.c", "nome_funzione": "RdbiCalibrationVerificationNumber_", "percorso": "../../elop_048/product/lin_drv/LinStub_test"},
+    {"nome_modulo": "LinStub.c", "nome_funzione": "RdbiCurrentDiagApp_", "percorso": "../../elop_048/product/lin_drv/LinStub_test"},
+    {"nome_modulo": "LinStub.c", "nome_funzione": "RdbiEcuPartNumber_", "percorso": "../../elop_048/product/lin_drv/LinStub_test"},
+    {"nome_modulo": "LinStub.c", "nome_funzione": "RdbiActiveDiagnosticSession_", "percorso": "../../elop_048/product/lin_drv/LinStub_test"},
+    {"nome_modulo": "LinStub.c", "nome_funzione": "RdbiEcuManufactoringDate_", "percorso": "../../elop_048/product/lin_drv/LinStub_test"},
+    {"nome_modulo": "LinStub.c", "nome_funzione": "RdbiSupplierSerialNumber_", "percorso": "../../elop_048/product/lin_drv/LinStub_test"},
+    {"nome_modulo": "LinStub.c", "nome_funzione": "RdbiSupplierSerialNumber_", "percorso": "../../elop_048/product/lin_drv/LinStub_test"},
+    {"nome_modulo": "LinStub.c", "nome_funzione": "RdbiSystemSupplierEcuHardwareNumber_", "percorso": "../../elop_048/product/lin_drv/LinStub_test"},
+    {"nome_modulo": "LinStub.c", "nome_funzione": "RdbiSystemSupplierEcuHardwareVersionNumber_", "percorso": "../../elop_048/product/lin_drv/LinStub_test"},
+    {"nome_modulo": "LinStub.c", "nome_funzione": "RdbiSystemSupplierEcuSoftwareNumber_", "percorso": "../../elop_048/product/lin_drv/LinStub_test"},
+    {"nome_modulo": "LinStub.c", "nome_funzione": "RdbiVmSystemNameOrEngineType_", "percorso": "../../elop_048/product/lin_drv/LinStub_test"},
+    {"nome_modulo": "LinStub.c", "nome_funzione": "RdbiSwNumber_", "percorso": "../../elop_048/product/lin_drv/LinStub_test"},
+    {"nome_modulo": "LinStub.c", "nome_funzione": "RdbiSerialNumber_", "percorso": "../../elop_048/product/lin_drv/LinStub_test"},
+    {"nome_modulo": "LinStub.c", "nome_funzione": "RdbiEcuHwPartNumberId_", "percorso": "../../elop_048/product/lin_drv/LinStub_test"},
+    {"nome_modulo": "LinStub.c", "nome_funzione": "RdbiVhitActualStatusDiag_", "percorso": "../../elop_048/product/lin_drv/LinStub_test"},
+    {"nome_modulo": "LinStub.c", "nome_funzione": "ApplLinDiagRoutineControl", "percorso": "../../elop_048/product/lin_drv/LinStub_test"},
+    
+
+
+{"nome_modulo": "LinStub.c", "nome_funzione": "WdbiSupplierSerialNumber_", "percorso": "../../elop_048/product/lin_drv/LinStub_test"}, 
 ]
 
 def copy_c_h_files(source_folder, destination_folder):
@@ -240,12 +275,97 @@ def delete_previous_content():
     # Se le cartelle di destinazione esistono, eliminarle
     for dest in [dest_test, dest_src]:
         if os.path.exists(dest):
-            shutil.rmtree(dest)  
+            shutil.rmtree(dest) 
+            
+def extract_static_functions(c_code):
+    # Cerca le funzioni static, assumendo che la graffa aperta "{" sia sulla stessa riga
+    pattern = re.compile(r'^\s*static\s+([\w\s\*\[\]]+?)\s+(\w+)\s*\(([^)]*)\)\s*\{', re.MULTILINE)
+    functions = []
+    for match in pattern.finditer(c_code):
+        ret_type = match.group(1).strip()
+        func_name = match.group(2).strip()
+        params = match.group(3).strip()
+        functions.append((ret_type, func_name, params))
+    return functions
+
+def parse_function_definitions(file_path):
+    function_pattern = re.compile(
+        r'(?P<ret_type>\w[\w\s\*]+?)\s+'  # Tipo di ritorno
+        r'(?P<func_name>\w+)\s*'  # Nome funzione
+        r'\((?P<params>[^)]*)\)\s*;'  # Parametri tra parentesi
+    )
+    
+    functions = []
+    
+    with open(file_path, 'r', encoding='utf-8') as file:
+        for i, line in enumerate(file):
+            if i >= 190:
+                break
+            match = function_pattern.match(line.strip())
+            if match:
+                ret_type = match.group('ret_type').strip()
+                func_name = match.group('func_name').strip()
+                params = match.group('params').strip()
+                functions.append((ret_type, func_name, params))
+    
+    return functions
+
+
+def aggiorna_file(file_path):
+    with open("../../elop_048/product/lin_drv/app/LinStub.c", 'r', encoding='utf-8') as f:
+        c_code = f.read()
+    static_functions = extract_static_functions(c_code)
+   # with open("../../elop_048/platform/basic_sw_platform/lin_drv/core/inc/LinDiag.h", 'r', encoding='utf-8') as f:
+    #    LinDiag = f.read()
+    LinDiagDefFunctions = parse_function_definitions("../../elop_048/platform/basic_sw_platform/lin_drv/core/inc/LinDiag.h")
+    marker = "/*NOT USER DEFINED*/"
+    try:
+        with open(file_path, 'r', encoding='utf-8') as f:
+            contenuto = f.read()
+    except Exception as e:
+        print(f"Errore nell'apertura del file: {e}")
+        sys.exit(1)
+
+    pos = contenuto.find(marker)
+    if pos == -1:
+        print("Il marker non è stato trovato nel file.")
+        sys.exit(1)
+    
+    # Conserva il contenuto fino alla fine del marker
+    nuovo_contenuto = contenuto[:pos + len(marker)]
+    
+    # Aggiunge una nuova riga e poi la lista (ogni elemento in una nuova riga)
+    for ret_type, func_name, params in static_functions:
+        nuovo_contenuto += "\n" + f"{ret_type} {func_name}({params});\n"
+    for ret_type, func_name, params in LinDiagDefFunctions:
+        nuovo_contenuto += "\n" + f"{ret_type} {func_name}({params});\n"
+        
+        
+
+    
+    try:
+        with open(file_path, 'w', encoding='utf-8') as f:
+            f.write(nuovo_contenuto)
+    except Exception as e:
+        print(f"Errore nella scrittura del file: {e}")
+        sys.exit(1)
+    
+    print("File aggiornato con successo.")
+
+def fileManager( output_file):
+    with open("../../elop_048/product/lin_drv/app/LinStub.c", 'r', encoding='utf-8') as f:
+        c_code = f.read()
+    static_functions = extract_static_functions(c_code)
+
+    with open(output_file, 'w', encoding='utf-8') as f:
+        for ret_type, func_name, params in static_functions:
+            f.write(f"{ret_type} {func_name}({params});\n")
 # ==============================
 # MAIN EXECUTION
 # ==============================
 if __name__ == "__main__":
     delete_previous_content()
+    aggiorna_file("../../elop_048/product/lin_drv/LinStub_test/TEST_ApplLinDiagReadDataById/src/LinStub.h") 
     for modulo in moduli:
         module_name = modulo['nome_modulo']
         function_name = modulo['nome_funzione']
@@ -260,4 +380,5 @@ if __name__ == "__main__":
     # Specify the directory to start (change as needed)
     folder_to_scan = "../../elop_048"  # Use "." for current directory or provide an absolute path
     print(f"Folder Tree of: {os.path.abspath(folder_to_scan)}\n")
-    print_folder_tree(folder_to_scan)     
+    print_folder_tree(folder_to_scan) 
+   
