@@ -17,7 +17,7 @@ EXCLUDED_FILES = {"unity.h", "unity.c", "cmock.c", "cmock.h", "unity_internals.h
 # CONFIGURATION & MODULE LIST
 # ==============================
 moduli = [
-    {"nome_modulo": "LinStub.c", "nome_funzione": "ApplLinDiagReadDataByAddress", "percorso": "../../elop_048/product/lin_drv/LinStub_test"},
+    {"nome_modulo": "LinStub.c", "nome_funzione": "ApplLinDiagReadDataByAddress", "percorso": "..\..\elop_048\product\lin_drv\LinStub_test"},
     {"nome_modulo": "LinStub.c", "nome_funzione": "ApplLinDiagSessionControl", "percorso": "../../elop_048/product/lin_drv/LinStub_test"},
     {"nome_modulo": "LinStub.c", "nome_funzione": "RdbiCalibrationVerificationNumber_", "percorso": "../../elop_048/product/lin_drv/LinStub_test"},
     {"nome_modulo": "LinStub.c", "nome_funzione": "WdbiEcuHwPartNumberId_", "percorso": "../../elop_048/product/lin_drv/LinStub_test"},
@@ -51,11 +51,43 @@ moduli = [
     {"nome_modulo": "LinStub.c", "nome_funzione": "ApplLinDiagRoutineControl", "percorso": "../../elop_048/product/lin_drv/LinStub_test"},
     {"nome_modulo": "SpeedMon.c", "nome_funzione": "SpeedMon_Run", "percorso": "../../elop_048/platform/basic_sw_platform/monitoring/test"},
     {"nome_modulo": "NvmMngr.c", "nome_funzione": "NvmMngr_WriteRequest_", "percorso": "../../elop_048/platform/basic_sw_platform/nvm_manager/test"},
-    
-
-
-{"nome_modulo": "LinStub.c", "nome_funzione": "WdbiSupplierSerialNumber_", "percorso": "../../elop_048/product/lin_drv/LinStub_test"}, 
+    {"nome_modulo": "NvmMngr.c", "nome_funzione": "NvmMngr_Read_", "percorso": "../../elop_048/platform/basic_sw_platform/nvm_manager/test"},    
+    {"nome_modulo": "LinStub.c", "nome_funzione": "WdbiSupplierSerialNumber_", "percorso": "../../elop_048/product/lin_drv/LinStub_test"}, 
 ]
+
+
+def copia_file(nome_file, percorso_sorgente, percorso_destinazione):
+    """
+    Cerca e copia un file dalla cartella sorgente alla cartella di destinazione.
+
+    Args:
+        nome_file (str): Il nome del file da cercare e copiare.
+        percorso_sorgente (str): Il percorso della cartella sorgente.
+        percorso_destinazione (str): Il percorso della cartella di destinazione.
+
+    Returns:
+        bool: True se il file è stato copiato con successo, False altrimenti.
+    """
+    # Costruisco il percorso completo del file nella cartella sorgente
+    percorso_file = percorso_sorgente+"/"+nome_file
+    os.path.join(percorso_sorgente, nome_file)
+    print(percorso_file)
+    # Verifica se il file esiste
+    if not os.path.isfile(percorso_file):
+        print(f"Il file '{nome_file}' non è stato trovato in {percorso_sorgente}.")
+        return False
+
+    # Costruisco il percorso di destinazione per il file
+    destinazione_file = os.path.join(percorso_destinazione, nome_file)
+
+    try:
+        # Copio il file dalla sorgente alla destinazione
+        shutil.copy(percorso_file, destinazione_file)
+        print(f"Il file '{nome_file}' è stato copiato con successo da {percorso_sorgente} a {percorso_destinazione}.")
+        return True
+    except Exception as e:
+        print(f"Si è verificato un errore durante la copia del file: {e}")
+        return False
 
 def copy_c_h_files(source_folder, destination_folder):
     """
@@ -366,7 +398,15 @@ def fileManager( output_file):
 # MAIN EXECUTION
 # ==============================
 if __name__ == "__main__":
-    delete_previous_content()
+    
+    for modulo in moduli:
+        module_name = modulo['nome_modulo']
+        function_name = modulo['nome_funzione']
+        base_directory = modulo['percorso']
+        copia_file(function_name+".c", "../../elop_048/tests/runnableAllTest/src", base_directory+"/TEST_"+function_name+"/src")
+        copia_file(function_name+".h", "../../elop_048/tests/runnableAllTest/src", base_directory+"/TEST_"+function_name+"/src")
+        copia_file("test_"+function_name+".c", "../../elop_048/tests/runnableAllTest/test", base_directory+"/TEST_"+function_name+"/test")
+    delete_previous_content()                            
     aggiorna_file("../../elop_048/product/lin_drv/LinStub_test/TEST_ApplLinDiagReadDataById/src/LinStub.h") 
     for modulo in moduli:
         module_name = modulo['nome_modulo']
